@@ -4,6 +4,8 @@ const cors = require("cors");
 const routes = require("./routes/authRoutes");
 const mongoose = require("mongoose");
 const app = express();
+const cookieParser = require("cookie-parser");
+
 //database connection
 mongoose
   .connect(process.env.DB_URL)
@@ -12,7 +14,8 @@ mongoose
 
 // Middleware
 app.use(express.json());
-
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
 app.use("/", routes);
 
 const port = 8000;
